@@ -23,9 +23,8 @@ class PasswordResetLinkController extends Controller
         $user = User::where('email', $request['email'])->first();
 
         if (!$user) {
-
             return redirect()->back()->withErrors([
-                'email' => 'No account found with that email address.',
+                'error' => 'No account found with that email address.',
             ]);
         }
 
@@ -33,18 +32,18 @@ class PasswordResetLinkController extends Controller
 
         $user->updateResetToken($resetToken, 60);
 
-        $resetLink = Config::get('app_url') . '/reset-password?token=' . $resetToken;
+        // $resetLink = Config::get('app_url') . '/reset-password?token=' . $resetToken;
 
         $subject = 'Password Reset Request';
         $message = "Hello " . $user->name . ",\n\n";
-        $message .= "We received a request to reset your password. Click the link below to reset your password:\n\n";
-        $message .= $resetLink . "\n\n";
+        $message .= "We received a request to reset your password. Use Token to reset your password:\n\n";
+        $message .=  $resetToken . "\n\n";
         $message .= "If you did not request a password reset, please ignore this email.\n\n";
         $message .= "Thank you,\n";
         $message .= "The " . Config::get('app_name') . " Team";
 
         Mail::sendMail($user->email, $subject, $message);
 
-        return redirect()->back()->with('message', 'A password reset link has been sent to your email address.');
+        return redirect()->route('password.reset')->with('password_mail', 'password-reset-mail');
     }
 }

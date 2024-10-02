@@ -1,0 +1,156 @@
+{
+    "workbench.startupEditor": "none",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.sideBar.location": "right",
+
+    // Intelephense configuration for PHP development
+    "intelephense.phpdoc.classTemplate": {
+        "summary": "$1",
+        "tags": [
+            "@package ${1:$SYMBOL_NAMESPACE}"
+        ]
+    },
+    "intelephense.compatibility.preferPsalmPhpstanPrefixedAnnotations": true,
+
+    // Disable built-in PHP suggestions to avoid conflicts with Intelephense
+    "php.suggest.basic": false,
+
+    // Enable PHP validation and set the PHP executable path
+    "php.validate.enable": true,
+    "php.validate.executablePath": "E:/myLocalHost/bin/php_839/php.exe",
+
+    // Inlay hints for better code insights
+    "php.inlayHints.parameters.byReference": true,
+    "php.inlayHints.parameters.enabled": true,
+    "php.inlayHints.parameters.suppressNameMatchingValue": true,
+    "php.inlayHints.types.lambdaParameter": true,
+    "php.inlayHints.types.variable": true,
+
+    // PHP formatting rules for consistent code style
+    "php.format.rules.indentBraces": true,
+    "php.format.rules.catchOnNewLine": true,
+    "php.format.rules.elseOnNewLine": true,
+    "php.format.rules.endWithNewLine": true,
+    "php.format.rules.finallyOnNewLine": true,
+    "php.format.rules.openBraceOnNewLineForAnonymousClasses": true,
+    "php.format.rules.openBraceOnNewLineForBlocks": true,
+    "php.format.rules.openBraceOnNewLineForFunctions": true,
+    "php.format.rules.openBraceOnNewLineForLambdas": true,
+    "php.format.rules.openBraceOnNewLineForNamespaces": true,
+    "php.format.rules.openBraceOnNewLineForTypes": true,
+    "php.format.rules.spaceAfterCast": true,
+    "php.format.rules.spaceAfterUnaryNot": true,
+    "php.format.rules.spaceAroundConcatenation": true,
+    "php.format.rules.spaceBeforeColonInControlStatements": true,
+    "php.format.rules.spaceBeforeColonInReturnType": true,
+    "php.format.rules.spaceBeforeParenthesesInCalls": true,
+    "php.format.rules.spaceBeforeParenthesesInControlStatements": true,
+    "php.format.rules.spaceBeforeParenthesesInDeclarations": true,
+    "php.format.rules.spaceWithinArrayInitilizersParens": true,
+    "php.format.rules.spaceWithinBrackets": true,
+    "php.format.rules.spaceWithinBracketsAroundExpression": true,
+    "php.format.rules.spaceWithinCallParens": true,
+    "php.format.rules.spaceWithinCatchParens": true,
+    "php.format.rules.spaceWithinDeclParens": true,
+    "php.format.rules.spaceWithinExpressionParens": true,
+    "php.format.rules.spaceWithinForeachParens": true,
+    "php.format.rules.spaceWithinForParens": true,
+    "php.format.rules.spaceWithinIfParens": true,
+    "php.format.rules.spaceWithinSwitchParens": true,
+    "php.format.rules.spaceWithinWhileParens": true,
+    "php.format.rules.alignConsecutiveAssignments": true,
+    "php.format.rules.alignConstants": true,
+    "php.format.rules.alignEnumCases": true,
+    "php.format.rules.alignMatchArmBodies": true,
+    "php.format.rules.alignProperties": true,
+    "php.format.rules.arrayInitializersAlignKeyValuePairs": true,
+    "php.format.rules.arrayInitializersNewLineAfterLastElement": true,
+    "php.format.rules.arrayInitializersNewLineBeforeFirstElement": true,
+    "php.format.rules.callParametersNewLineAfterLeftParen": true,
+    "php.format.rules.callParametersNewLineBeforeRightParen": true,
+    "php.format.rules.chainedMethodCallsSemicolonOnNewLine": true,
+    "php.format.rules.declCompactEmptyBody": true,
+    "php.format.rules.declKeepRightParenAndOpenBraceOnOneLine": true,
+    "php.format.rules.declParametersNewLineAfterLeftParen": true,
+    "php.format.rules.declParametersNewLineBeforeRightParen": true,
+    "php.format.rules.forStatementNewLineAfterLeftParen": true,
+    "php.format.rules.forStatementNewLineBeforeRightParen": true,
+    "php.format.rules.groupUseNewLineBeforeFirstDeclaration": true,
+    "php.format.rules.ifStatementNewLineAfterLeftParen": true,
+    "php.format.rules.ifStatementNewLineBeforeRightParen": true,
+    "php.format.rules.keepClassesOnOneLine": true,
+    "php.format.rules.keepControlStatementsOnOneLine": true,
+    "php.format.rules.keepFunctionsOnOneLine": true,
+    "php.format.rules.newLineAfterImplements": true,
+    "php.format.rules.switchStatementNewLineBeforeRightParen": true,
+    "php.format.rules.switchStatementNewLineAfterLeftParen": true,
+    "php.format.rules.whileStatementNewLineAfterLeftParen": true,
+    "php.format.rules.whileStatementNewLineBeforeRightParen": true,
+
+    // Enable JavaScript/TypeScript inlay hints
+    "javascript.inlayHints.parameterTypes.enabled": true,
+    "javascript.inlayHints.parameterNames.enabled": "all",
+
+    // Editor settings
+    "editor.suggest.snippetsPreventQuickSuggestions": true,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.fontSize": 16,
+    "editor.lineHeight": 2,
+    "editor.suggestLineHeight": 20,
+    "editor.suggest.preview": true,
+    "editor.suggest.shareSuggestSelections": true,
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "terminal.integrated.mouseWheelZoom": true,
+    "terminal.integrated.suggest.enabled": true,
+    "debug.console.fontSize": 16,
+    "debug.console.lineHeight": 20,
+    "debug.console.acceptSuggestionOnEnter": "on",
+
+    // Markdown and Notebook settings
+    "markdown.preview.fontSize": 16,
+    "notebook.defaultFormatter": "esbenp.prettier-vscode",
+    "notebook.output.lineHeight": 2,
+    "notebook.markdown.lineHeight": 2,
+
+    // Chat settings
+    "chat.editor.lineHeight": 2,
+    "chat.editor.fontSize": 16,
+
+    // JavaScript/TypeScript formatting rules
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces": true,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+
+    // Blade template formatter
+    "[blade]": {
+        "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    },
+
+    // Set Intelephense as the default formatter for PHP
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+
+    // Git settings
+    "git.closeDiffOnOperation": true,
+
+    // Workbench settings
+    "workbench.editor.closeOnFileDelete": true,
+    "workbench.editor.enablePreview": false,
+
+    // Settings sync
+    "settingsSync.ignoredSettings": [],
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.wordWrap": "on",
+    "chat.editor.wordWrap": "on",
+    "notebook.output.wordWrap": true
+}

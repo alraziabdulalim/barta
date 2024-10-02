@@ -14,15 +14,6 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            @if ($errors->any())
-                <div class="alert alert-danger text-red-700">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <form class="space-y-6" action="{{ route('login') }}" method="POST" novalidate>
                 @csrf
                 <div>
@@ -54,7 +45,16 @@
                         Sign in
                     </button>
                 </div>
+
+                @if (session('password') === 'password-updated')
+                    <p class="text-sm text-gray-600 dark:text-gray-400" x-data="{ show: true }" x-show="show" x-transition
+                        x-init="setTimeout(() => show = false, 2000)">{{ __('A password reset link has been sent to your email address.') }}</p>
+                @endif
             </form>
+
+            @error('error')
+                {{ $message }}
+            @enderror
 
             <p class="mt-10 text-center text-sm text-gray-500">
                 Don't have an account yet?

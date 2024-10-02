@@ -20,8 +20,8 @@
             </ul>
         </div>
         <hr class="my-6 sm:mx-auto border-gray-700 lg:my-8" />
-        <span class="block text-sm sm:text-center text-gray-200">© 2023
-            <a href="https://github.com/alnahian2003" class="hover:underline">Barta</a>. All Rights
+        <span class="block text-sm sm:text-center text-gray-200">© 2024
+            <a href="https://github.com/abdulalim07" class="hover:underline">Barta</a>. All Rights
             Reserved.</span>
     </div>
 </footer>

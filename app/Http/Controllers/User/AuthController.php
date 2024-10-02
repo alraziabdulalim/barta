@@ -3,14 +3,21 @@
 namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
+use App\Services\AuthService;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 
 class AuthController extends Controller
 {
+    protected $authService;
+
+    public function __construct(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
     public function create()
     {
         return view('auth.login');
@@ -23,19 +30,17 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = $this->authService->findUserByEmail($request->email);
 
         if ($user && Hash::check($request->password, $user->password)) {
 
-            Auth::login($user);
-
-            session(['user_id' => $user->id, 'username' => $user->username, 'fullname' => $user->name, 'email' => $user->email]);
+            $this->authService->storeSessionAndLogin($user);
 
             return redirect()->intended('/dashboard');
         }
 
         return redirect()->back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'error' => 'The provided credentials do not match our records.',
         ]);
     }
 
@@ -44,7 +49,6 @@ class AuthController extends Controller
         Auth::logout();
 
         request()->session()->invalidate();
-
         request()->session()->regenerateToken();
 
         return redirect('/login')->with('status', 'You have been logged out successfully.');

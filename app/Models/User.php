@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -19,9 +21,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -47,13 +52,25 @@ class User extends Authenticatable
         ];
     }
 
+    protected function avatarUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->avatar ? asset('storage/' . $this->avatar) : 'https://ui-avatars.com/api/?name=' . $this->name,
+        );
+    }
+
     public function updateResetToken($token, $expiresInMinutes = 60)
     {
         $expiryTime = now()->addMinutes($expiresInMinutes);
 
         return DB::table('password_reset_tokens')->updateOrInsert(
-            ['email' => $this->email], // Condition
-            ['token' => Hash::make($token), 'created_at' => now()] // Data to update
+            ['email' => $this->email],
+            ['token' => Hash::make($token), 'created_at' => now()]
         );
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
     }
 }

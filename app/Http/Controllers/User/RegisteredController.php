@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\AuthService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rules\Password;
+use App\Services\UserRegistrationService;
 
 class RegisteredController extends Controller
 {
+    protected $userRegistrationService;
+    protected $authService;
+
+    public function __construct(UserRegistrationService $userRegistrationService, AuthService $authService)
+    {
+        $this->userRegistrationService = $userRegistrationService;
+        $this->authService = $authService;
+    }
+
     public function create()
     {
         return view('auth.register');
@@ -19,23 +26,9 @@ class RegisteredController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:' . User::class,
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-            'password' => ['required', 'min:8', Password::defaults()],
-        ]);
+        $user = $this->userRegistrationService->handleRegistration($request);
 
-        $user = User::create([
-            'name' => $request->input('name'),
-            'username' => $request->input('username'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
-        ]);
-
-        session(['user_id' => $user->id, 'username' => $user->username, 'fullname' => $user->name, 'email' => $user->email]);
-
-        Auth::login($user);
+        $this->authService->storeSessionAndLogin($user);
 
         return redirect()->route('dashboard')->with('success', 'Registration successful. Welcome!');
     }

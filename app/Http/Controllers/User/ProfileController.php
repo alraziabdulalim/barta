@@ -4,49 +4,72 @@ namespace App\Http\Controllers\User;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\AuthService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
-    public function  index()
+    protected $authService;
+
+    public function __construct(AuthService $authService)
     {
-        $id = Auth::id();
-        $user = User::where('id', $id)->first();
+        $this->authService = $authService;
+    }
+
+    public function index()
+    {
+        $user = $this->authService->getAuthenticatedUser();
 
         return view('users.profile.index', compact('user'));
     }
 
-    public function  edit()
+    public function edit()
     {
-        $id = Auth::id();
-        $user = User::where('id', $id)->first();
-
+        $user = $this->authService->getAuthenticatedUser();
 
         return view('users.profile.edit', compact('user'));
     }
 
-
     public function update(UpdateUserRequest $request): RedirectResponse
     {
-        $id = Auth::id();
-
         $validatedData = $request->validated();
+        $user = $this->authService->getAuthenticatedUser();
 
-        $user = User::findOrFail($id);
+        $user->update([
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+            'email' => $validatedData['email'],
+        ]);
 
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
+        $this->authService->storeSessionAndLogin($user);
 
-        if (!empty($validatedData['password'])) {
-            $user->password = bcrypt($validatedData['password']);
+        return redirect()->route('profile.update')->with('profile_info', 'info-updated');
+    }
+
+    public function updateAvatar(Request $request): RedirectResponse
+    {
+        $user = $this->authService->getAuthenticatedUser();
+
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $extension = $request->file('avatar')->getClientOriginalExtension();
+        $filename = uniqid($user->first_name . '_') . '.' . $extension;
+
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
         }
 
-        $user->save();
+        $path = $request->file('avatar')->storeAs('avatars', $filename, 'public');
 
-        return redirect()->route('profile')->with('success', 'User updated successfully.');
+        $user->update([
+            'avatar' => $path,
+        ]);
+
+        return back()->with('status', 'avatar-updated');
     }
 }

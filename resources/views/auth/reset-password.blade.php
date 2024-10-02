@@ -13,63 +13,54 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <!-- Display Validation Errors -->
-            @if ($errors->any())
-                <div class="alert alert-danger text-red-700">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
-            <!-- Password Reset Form -->
-            <form class="space-y-6" action="{{ route('password.update') }}" method="POST" novalidate>
+            <form class="space-y-6" action="{{ route('password.updatebytoken') }}" method="POST" novalidate>
                 @csrf
-                @method('POST')
+                @method('PATCH')
 
-                <!-- Token Field -->
-                <input type="hidden" name="token" value="{{ request()->token }}">
-
-                <!-- Email Address -->
                 <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
                     <div class="mt-2">
-                        <input id="email" name="email" type="email" autocomplete="email" placeholder="bruce@wayne.com"
-                            value="{{ old('email') }}" required
+                        <input id="email" name="email" type="email" autocomplete="off"
+                            required
                             class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6">
                     </div>
                 </div>
 
-                <!-- New Password -->
+                <div>
+                    <label for="token" class="block text-sm font-medium leading-6 text-gray-900">Token</label>
+                    <div class="mt-2">
+                        <input id="token" name="token" type="text" autocomplete="off"
+                            required
+                            class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6">
+                    </div>
+                </div>
+
                 <div>
                     <label for="password" class="block text-sm font-medium leading-6 text-gray-900">New Password</label>
                     <div class="mt-2">
-                        <input id="password" name="password" type="password" autocomplete="new-password" placeholder="••••••••"
+                        <input id="password" name="password" type="password" autocomplete="new-password"
                             required
                             class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6">
                     </div>
                 </div>
 
-                <!-- Confirm New Password -->
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-medium leading-6 text-gray-900">Confirm New Password</label>
-                    <div class="mt-2">
-                        <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" placeholder="••••••••"
-                            required
-                            class="block w-full rounded-md border-0 p-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6">
-                    </div>
-                </div>
-
-                <!-- Submit Button -->
                 <div>
                     <button type="submit"
                         class="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
                         Reset Password
                     </button>
                 </div>
+
+                @if (session('password_mail') === 'password-reset-mail')
+                    <p class="text-sm text-gray-600 dark:text-gray-400" x-data="{ show: true }" x-show="show" x-transition
+                        x-init="setTimeout(() => show = false, 2000)">{{ __('A password reset link has been sent to your email address.') }}</p>
+                @endif
             </form>
+
+            @error('error')
+                {{ $message }}
+            @enderror
 
             <p class="mt-10 text-center text-sm text-gray-500">
                 Remembered your password?

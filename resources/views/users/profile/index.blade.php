@@ -1,26 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white border-2 p-8 border-gray-800 rounded-xl min-h-[400px] space-y-8 flex items-center flex-col justify-center">
+    <div
+        class="bg-white border-2 p-8 border-gray-800 rounded-xl min-h-[400px] space-y-8 flex items-center flex-col justify-center">
         {{-- Profile Info --}}
         <div class="flex gap-4 justify-center flex-col text-center items-center">
             {{-- Avatar --}}
             <div class="relative">
-                <img class="w-32 h-32 rounded-full border-2 border-gray-800"
-                    src="https://avatars.githubusercontent.com/u/831997" alt="Ahmed Shamim" />
+                <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="{{ 'https://ui-avatars.com/api/?name='. auth()->user()->first_name }}" alt="{{ auth()->user()->first_name }}" />
                 <span
                     class="bottom-2 right-4 absolute w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
             </div>
-            {{-- Avatar --}}
 
             {{-- User Meta --}}
             <div>
-                <h1 class="font-bold md:text-2xl">{{  $user->name }}</h1>
+                <h1 class="font-bold md:text-2xl">{{ $user->name }}</h1>
                 <p class="text-gray-700">{{ __('Less Talk, More Code 💻') }}</p>
             </div>
-            {{-- User Meta --}}
         </div>
-        {{-- Profile Info --}}
 
         {{-- Profile Stats --}}
         <div class="flex flex-row gap-16 justify-center text-center items-center">
@@ -39,7 +36,6 @@
                 <p class="text-gray-600">{{ __('Followers') }}</p>
             </div>
         </div>
-        {{-- Profile Stats --}}
 
         {{-- Edit Profile Button --}}
         <a href="{{ route('profile.edit') }}" type="button"
@@ -53,6 +49,5 @@
 
             Edit Profile
         </a>
-        {{-- Edit Profile Button --}}
     </div>
 @endsection

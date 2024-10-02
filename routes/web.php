@@ -7,6 +7,7 @@ use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\RegisteredController;
 use App\Http\Controllers\User\NewPasswordController;
 use App\Http\Controllers\User\PasswordResetLinkController;
+use App\Http\Controllers\User\PostController;
 use App\Support\Mail;
 
 
@@ -24,6 +25,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/avatar/update', [ProfileController::class, 'updateAvatar'])->name('avatar.update');
+
+    Route::get('/posts', [PostController::class, 'index'])->name('posts');
+    Route::post('/posts/create', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::patch('/posts/{post}/edit', [PostController::class, 'update'])->name('posts.update');
+    Route::get('/posts/{post}/show', [PostController::class, 'show'])->name('posts.show');
 
     Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
 });
@@ -34,9 +42,11 @@ Route::post('/login', [AuthController::class, 'store'])->name('login.store');
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
 
-Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
+Route::get('reset-password-by-token', [NewPasswordController::class, 'create'])
     ->name('password.reset');
-Route::post('reset-password', [NewPasswordController::class, 'update'])
+Route::patch('reset-password-by-token', [NewPasswordController::class, 'updateByToken'])
+    ->name('password.updatebytoken');
+Route::patch('reset-password', [NewPasswordController::class, 'update'])
     ->name('password.update');
 
 Route::get('/test-email', function () {
