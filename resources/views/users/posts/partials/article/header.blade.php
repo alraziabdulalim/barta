@@ -4,17 +4,17 @@
 
             <div class="flex-shrink-0">
                 <img class="h-10 w-10 rounded-full object-cover"
-                    src="{{ 'https://ui-avatars.com/api/?name=' . auth()->user()->first_name }}"
-                    alt="{{ auth()->user()->first_name }}" />
+                    src="{{ 'https://ui-avatars.com/api/?name=' . $post->user->first_name }}"
+                    alt="{{ $post->user->first_name }}" />
             </div>
 
             <div class="text-gray-900 flex flex-col min-w-0 flex-1">
                 <a href="{{ 'https://github.com/' }}" class="hover:underline font-semibold line-clamp-1">
-                    {{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}
+                    {{ $post->user->first_name . ' ' . $post->user->last_name }}
                 </a>
 
                 <a href="{{ 'https://twitter.com/' }}" class="hover:underline text-sm text-gray-500 line-clamp-1">
-                    {{ auth()->user()->username }}
+                    {{ $post->user->username }}
                 </a>
             </div>
         </div>
