@@ -1,14 +1,15 @@
 <?php
 
+use App\Support\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\PostController;
+use App\Http\Controllers\User\SearchController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\RegisteredController;
 use App\Http\Controllers\User\NewPasswordController;
 use App\Http\Controllers\User\PasswordResetLinkController;
-use App\Http\Controllers\User\PostController;
-use App\Support\Mail;
 
 
 Route::get('/', function () {
@@ -30,8 +31,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/posts', [PostController::class, 'index'])->name('posts');
     Route::post('/posts/create', [PostController::class, 'store'])->name('posts.store');
     Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
-    Route::patch('/posts/{post}/edit', [PostController::class, 'update'])->name('posts.update');
+    Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::get('/posts/{post}/show', [PostController::class, 'show'])->name('posts.show');
+
+    Route::get('/searches/user-search', [SearchController::class, 'userSearch'])->name('searches.user');
 
     Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
 });

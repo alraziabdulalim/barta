@@ -2,7 +2,7 @@
     <div class="flex items-start /space-x-3/">
 
         <div class="flex-shrink-0">
-            <img class="h-10 w-10 rounded-full object-cover" src="{{ 'https://ui-avatars.com/api/?name='. auth()->user()->first_name }}"
+            <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('storage/' . auth()->user()->avatar) }}"
                 alt="{{ auth()->user()->first_name }}" />
         </div>
 

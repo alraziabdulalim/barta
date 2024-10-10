@@ -1,14 +1,14 @@
-<form action="{{ route('posts.update', $post->id) }}" method="POST"
+<form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data"
 class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 py-5 sm:px-6 space-y-3">
 @csrf
 @method('PATCH')
 
-@include('users.posts.partials.create.barta-edit')
+@include('users.posts.partials.edit.barta-edit')
 
 <div>
     <div class="flex items-center justify-between">
         <div class="flex gap-4 text-gray-600">
-            @include('users.posts.partials.create.picture')
+            @include('users.posts.partials.edit.picture-edit')
 
             @include('users.posts.partials.create.gif')
         </div>

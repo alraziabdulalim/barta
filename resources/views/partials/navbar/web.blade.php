@@ -1,5 +1,3 @@
- {{-- resetup --}}
-
  <div class="flex h-16 justify-between">
      <div class="flex">
          <div class="flex flex-shrink-0 items-center">
@@ -19,11 +17,16 @@
              <a href="{{ route('dashboard') }}"
                  class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-600 hover:border-gray-300 hover:text-gray-800">People</a>
          </div>
-
      </div>
+     {{-- Search --}}
+     <form action="{{ route('searches.user') }}" method="GET" class="flex items-center">
+         <input id="search" type="search" name="search" placeholder="Search..."
+             value="{{ request()->query('search') }}"
+             class="border-2 border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none" required/>
+     </form>
+
      <div class="hidden sm:ml-6 sm:flex gap-2 sm:items-center">
          {{-- Right Nav Bar --}}
-         {{-- This Button Should Be Hidden on Mobile Devices --}}
          <a href="{{ route('posts') }}"
              class="text-gray-900 hover:text-white border-2 border-gray-800 hover:bg-gray-900 focus:ring-2 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hidden md:block">
              Create Post
@@ -57,8 +60,8 @@
                      class="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                      id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                      <span class="sr-only">Open user menu</span>
-                     <img class="h-8 w-8 rounded-full" src="{{ 'https://ui-avatars.com/api/?name='. auth()->user()->first_name }}"
-                         alt="{{ htmlspecialchars(session('first_name')) }}" />
+                     <img class="h-8 w-8 rounded-full" src="{{ asset('storage/' . auth()->user()->avatar) }}"
+                         alt="{{ htmlspecialchars(session('first_name'), ENT_QUOTES) }}" />
                  </button>
              </div>
 

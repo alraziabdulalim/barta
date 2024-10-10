@@ -6,7 +6,7 @@
         <div class="mt-2 flex items-center gap-x-3">
             <input class="hidden" type="file" name="avatar" id="avatar" />
             <img class="h-12 w-12 rounded-full"
-                src="{{ 'https://ui-avatars.com/api/?name=' . auth()->user()->first_name }}"
+                src="{{ asset('storage/' . auth()->user()->avatar) }}"
                 alt="{{ auth()->user()->first_name }}" />
 
             <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

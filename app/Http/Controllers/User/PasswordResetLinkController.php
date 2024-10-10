@@ -32,8 +32,6 @@ class PasswordResetLinkController extends Controller
 
         $user->updateResetToken($resetToken, 60);
 
-        // $resetLink = Config::get('app_url') . '/reset-password?token=' . $resetToken;
-
         $subject = 'Password Reset Request';
         $message = "Hello " . $user->name . ",\n\n";
         $message .= "We received a request to reset your password. Use Token to reset your password:\n\n";
