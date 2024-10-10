@@ -6,7 +6,7 @@ class="bg-white border-2 border-black rounded-lg shadow mx-auto max-w-none px-4 
 <div>
     <div class="flex items-center justify-between">
         <div class="flex gap-4 text-gray-600">
-            @include('users.posts.partials.create.picture')
+            @include('users.posts.partials.create.picture-input')
 
             @include('users.posts.partials.create.gif')
         </div>

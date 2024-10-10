@@ -7,14 +7,15 @@
         <div class="flex gap-4 justify-center flex-col text-center items-center">
             {{-- Avatar --}}
             <div class="relative">
-                <img class="w-32 h-32 rounded-full border-2 border-gray-800" src="{{ 'https://ui-avatars.com/api/?name='. auth()->user()->first_name }}" alt="{{ auth()->user()->first_name }}" />
+                <img class="w-32 h-32 rounded-full border-2 border-gray-800"
+                    src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="{{ auth()->user()->first_name }}" />
                 <span
                     class="bottom-2 right-4 absolute w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
             </div>
 
             {{-- User Meta --}}
             <div>
-                <h1 class="font-bold md:text-2xl">{{ $user->name }}</h1>
+                <h1 class="font-bold md:text-2xl">{{ $user->first_name . ' ' . $user->last_name }}</h1>
                 <p class="text-gray-700">{{ __('Less Talk, More Code 💻') }}</p>
             </div>
         </div>

@@ -17,7 +17,7 @@
 
     // Enable PHP validation and set the PHP executable path
     "php.validate.enable": true,
-    "php.validate.executablePath": "E:/myLocalHost/bin/php_839/php.exe",
+    "php.validate.executablePath": "F:/DEV_Area/Server/laragon/bin/php/php-8.3.12/php.exe",
 
     // Inlay hints for better code insights
     "php.inlayHints.parameters.byReference": true,

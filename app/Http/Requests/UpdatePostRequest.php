@@ -23,6 +23,7 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'barta' => 'required|string|max:255',
+            'picture' => 'required|image|mimes:jpg,jpeg,png|max:5120',
         ];
     }
 }

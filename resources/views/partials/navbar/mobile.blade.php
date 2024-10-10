@@ -13,7 +13,7 @@
     <div class="border-t border-gray-200 pt-4 pb-3">
         <div class="flex items-center px-4">
             <div class="flex-shrink-0">
-                <img class="h-10 w-10 rounded-full" src="{{ 'https://ui-avatars.com/api/?name='. auth()->user()->first_name }}"
+                <img class="h-10 w-10 rounded-full" src="{{ asset('storage/' . auth()->user()->avatar) }}"
                     alt="{{ session('fullname') }}" />
             </div>
             <div class="ml-3">

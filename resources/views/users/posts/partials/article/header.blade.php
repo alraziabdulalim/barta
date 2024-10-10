@@ -3,8 +3,7 @@
         <div class="flex items-center space-x-3">
 
             <div class="flex-shrink-0">
-                <img class="h-10 w-10 rounded-full object-cover"
-                    src="{{ 'https://ui-avatars.com/api/?name=' . $post->user->first_name }}"
+                <img class="h-10 w-10 rounded-full object-cover" src="{{ asset('storage/' . $post->user->avatar) }}"
                     alt="{{ $post->user->first_name }}" />
             </div>
 
@@ -19,30 +18,35 @@
             </div>
         </div>
 
-        <div class="flex flex-shrink-0 self-center">
+        <div class="flex flex-shrink-0 self-center" x-data="{ open: false }">
             <div class="relative inline-block text-left">
-                <div class="flex items-center space-x-2">
-                    <a href="{{ route('posts.edit', ['post' => $post->id]) }}">
-                        <button type="button"
-                            class="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600"
-                            id="menu-0-button">
-                            <span class="sr-only">Edit</span>
-                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path
-                                    d="M17.414 2.586a2 2 0 00-2.828 0l-9 9A2 2 0 005 13v2.586A1.5 1.5 0 006.5 17H9a2 2 0 001.414-.586l9-9a2 2 0 000-2.828l-2-2zM10 15H6v-1.414l7.586-7.586 1.414 1.414L10 15zm7.586-7.586l-1.414-1.414 1.293-1.293a1 1 0 111.414 1.414l-1.293 1.293z" />
-                            </svg>
-                        </button>
-                    </a>
-                    <a href="{{ route('posts.show', ['post' => $post->id]) }}">
-                        <button type="button"
-                            class="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600"
-                            id="menu-0-button">
-                            <span class="sr-only">Show</span>
-                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path d="M2 3a1 1 0 011-1h10a1 1 0 011 1v14a1 1 0 01-1 1H3a1 1 0 01-1-1V3zm2 0v14h10V3H4zm1 1h8v1H5V4zM5 8h8v1H5V8zm0 4h8v1H5v-1z" />
-                            </svg>
-                        </button>
-                    </a>
+                <div>
+                    <button @click="open = !open" type="button"
+                        class="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600"
+                        id="menu-0-button">
+                        <span class="sr-only">Open options</span>
+                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Dropdown menu -->
+                <div x-show="open" @click.away="open = false"
+                    class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
+                    style="display: none;">
+                    <a href="{{ route('posts.show', ['post' => $post->id]) }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1"
+                        id="user-menu-item-0">Show</a>
+                    @if (auth()->user()->id == $post->user_id)
+                        <a href="{{ route('posts.edit', ['post' => $post->id]) }}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+                            tabindex="-1" id="user-menu-item-1">Edit</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            role="menuitem" tabindex="-1" id="user-menu-item-2">Delete</a>
+                    @endif
                 </div>
             </div>
         </div>
