@@ -55,7 +55,7 @@ class User extends Authenticatable
     protected function avatarUrl(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->avatar ? asset('storage/' . $this->avatar) : 'https://ui-avatars.com/api/?name=' . $this->name,
+            get: fn() => $this->avatar ? asset('storage/' . $this->avatar) : 'https://ui-avatars.com/api/?size=512&background=random&name' . urlencode($this->name),
         );
     }
 

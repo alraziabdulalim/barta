@@ -38,11 +38,12 @@ class UserRegistrationService
 
     protected function formatUserData(Request $request): array
     {
-        $fullName = explode(' ', $request->input('full_name'), 2);
+        $getName = $request->input('full_name');
+        $fullName = explode(' ', $getName, 2);
         $firstName = $fullName[0];
         $lastName = $fullName[1] ?? '';
 
-        $avatarPath = $request->file('avatar') ? $this->storeAvatar($request, $firstName) : $this->storeAvatarBeforeCreate($firstName);
+        $avatarPath = $request->file('avatar') ? $this->storeAvatar($request, $getName) : $this->storeAvatarBeforeCreate($getName);
 
         return [
             'first_name' => $firstName,
@@ -53,24 +54,24 @@ class UserRegistrationService
             'password' => Hash::make($request->input('password')),
         ];
     }
-    protected function storeAvatar(Request $request, $firstName): string
+    protected function storeAvatar(Request $request, $getName): string
 {
     $validated = $request->validate([
         'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
     ]);
 
     $extension = $request->file('avatar')->getClientOriginalExtension();
-    $filename = uniqid($firstName . '_') . '.' . $extension;
+    $filename = uniqid($getName . '_') . '.' . $extension;
 
     $path = $request->file('avatar')->storeAs('avatars', $filename, 'public');
 
     return $path;
 }
 
-    protected function storeAvatarBeforeCreate($firstName): string
+    protected function storeAvatarBeforeCreate($getName): string
     {
-        $avatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($firstName);
-        $filename = uniqid($firstName . '_') . '.png';
+        $avatarUrl = 'https://ui-avatars.com/api/?size=512&background=random&name=' . urlencode($getName);
+        $filename = uniqid($getName . '_') . '.png';
         $path = 'avatars/' . $filename;
 
         $imageContent = file_get_contents($avatarUrl);
