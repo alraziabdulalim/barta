@@ -36,7 +36,7 @@ class AuthController extends Controller
 
             $this->authService->storeSessionAndLogin($user);
 
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/welcome');
         }
 
         return redirect()->back()->withErrors([

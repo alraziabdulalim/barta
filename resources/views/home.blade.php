@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div class="text-center py-12 border border-gray-800 rounded-xl">
-            <a href="{{ route('index') }}">
+            <a href="{{ route('home') }}">
                 <h1 class="text-6xl justify-center items-center  font-bold text-gray-900">Barta</h1>
             </a>
             <br class="text-3xl">

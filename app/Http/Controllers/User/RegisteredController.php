@@ -30,6 +30,6 @@ class RegisteredController extends Controller
 
         $this->authService->storeSessionAndLogin($user);
 
-        return redirect()->route('dashboard')->with('success', 'Registration successful. Welcome!');
+        return redirect()->route('welcome')->with('success', 'Registration successful. Welcome!');
     }
 }

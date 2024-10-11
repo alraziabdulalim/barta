@@ -6,22 +6,22 @@ use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\PostController;
 use App\Http\Controllers\User\SearchController;
 use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\WelcomeController;
 use App\Http\Controllers\User\RegisteredController;
 use App\Http\Controllers\User\NewPasswordController;
 use App\Http\Controllers\User\PasswordResetLinkController;
 
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+    return view('home');
+})->name('home');
 
 Route::get('/register', [RegisteredController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredController::class, 'store'])->name('register.store');
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
